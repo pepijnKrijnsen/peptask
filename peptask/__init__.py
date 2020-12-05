@@ -9,4 +9,7 @@ def create_app():
     except OSError:
         pass
 
+    from . import tts
+    app.register_blueprint(tts.bp)
+
     return app

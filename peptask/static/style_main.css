@@ -1,0 +1,15 @@
+.tasklist {
+	height: 80vh;
+	overflow: auto;
+	width: 700px;
+	margin: 0 auto;
+	padding: 0 6px;
+}
+
+.task {
+	height: 160px;
+	border: 1px solid blue;
+	margin-bottom: 12px;
+}
+
+
