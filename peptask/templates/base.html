@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{% endblock %} - peptask</title>
+<link rel="stylesheet" href="../static/style_main.css">
+
+<section class="tasklist">
+    {% block content %}{% endblock %}
+</section>
+
+<div id="new_task">
+    <a href="{{ url_for("tts.newTask") }}">New task</a>
+</div>

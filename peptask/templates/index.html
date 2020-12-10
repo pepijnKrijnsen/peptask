@@ -1,24 +1,10 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}{% endblock %} - peptask</title>
-<link rel="stylesheet" href="../static/style_main.css">
-
-<section class="tasklist">
-	<div class="task"></div>
-	<div class="task"></div>
-	<div class="task"></div>
-	<div class="task"></div>
-	<div class="task"></div>
-	<div class="task"></div>
-	<!--
-     {% block content %}
-	{% for task in tasks %}
+{% block content %}
+    {% for task in tasks %}
 	<div class="task">
 	    <h2>{{ task["title"] }}</h2>
-
-</section>
-
-<div id="new_task">
-    <a href="{{ url_for("tts.newTask") }}">New task</a>
-</div>
+	    <h3>{{ task["due_by"] }}</h3>
+	</div>
+    {% endfor %}
+{% endblock %}
