@@ -2,7 +2,19 @@
 
 {% block title %}Tasks{% endblock %}
 
-{% block content %}
+{% block newtask %}
+    <div class="new_task">
+        <form>
+            <label for="title">Title:</label><br />
+            <input type="text" id="title" name="title"><br />
+            <label for="duedate">Due date (yyyymmdd):</label><br />
+            <input type="text" id="duedate" name="duedate><br />
+            <input type="submit" value="Submit">
+        </form> 
+    </div>
+{% endblock %}
+
+{% block tasks %}
     {% for task in tasks %}
 	<div class="task">
 	    <h2>{{ task["title"] }}</h2>

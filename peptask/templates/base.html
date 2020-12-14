@@ -4,8 +4,9 @@
 <title>{% block title %}{% endblock %} - peptask</title>
 <link rel="stylesheet" href="../static/style_main.css">
 
-<section class="tasklist">
-    {% block content %}{% endblock %}
+<section class="content">
+    {% block newtask %}{% endblock %}
+    {% block tasks %}{% endblock %}
 </section>
 
 <div id="new_task">
