@@ -6,8 +6,10 @@ from . import model
 
 bp = Blueprint("view", __name__)
 
-@bp.route("/", methods=["GET"])
+@bp.route("/", methods=("GET", "POST"))
 def index():
+    if method == "POST":
+        model.newTask(title, due_date)
     tasks = model.loadTasks()
     return render_template("index.html", tasks = tasks)
 
