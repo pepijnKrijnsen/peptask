@@ -4,12 +4,12 @@
 
 {% block newtask %}
     <div class="new_task">
-        <form>
+        <form method="post">
 	    <label for="title">Title:</label><br />
 	    <input type="text" id="title" name="title"><br />
 	    <label for="duedate">Due date (yyyymmdd):</label><br />
 	    <input type="text" id="duedate" name="duedate"><br />
-	    <input type="submit" value="Submit">
+	    <input type="submit" value="Save">
 	</form> 
     </div>
 {% endblock %}
