@@ -1,9 +1,12 @@
+import os, json
+from datetime import datetime as dt
+
+
 def newTask(title, due_date):
     # data validation
     if not title.isalnum():
         error = "Title must be alpha-numeric."
         return error
-    from datetime import datetime as dt
     fmnow = dt.now().strftime("%Y%m%d")
     if due_date < fmnow:
         error = "Due date cannot be in the past."
@@ -18,14 +21,12 @@ def newTask(title, due_date):
     l.write(last_unique); l.close()
 
     # writing the file
-    new_task_file = '{ "title": "%s", "due_by": "%s" }' % (title, due_date)
+    new_task_file = '{ "id": "%s", "title": "%s", "due_by": "%s" }' % (last_unique, title, due_date)
     nt = open("peptask/tasks/active/{}".format(last_unique), "x")
     nt.write(new_task_file); nt.close()
-    print(new_task_file)
 
 
 def loadTasks():
-    import os, json
     tasks = []
     dir = "peptask/tasks/active/"
     tasks_files = os.listdir(dir)
@@ -36,3 +37,9 @@ def loadTasks():
         d = json.loads(task_data)
         tasks.append(d)
     return tasks
+
+def completeTask(id):
+    act_dir = "peptask/tasks/active/"
+    comp_dir = "peptask/tasks/completed/"
+    task_file = act_dir + id
+    move_active = "mv {} {}".format(task_file, comp_dir)
