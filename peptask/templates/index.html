@@ -5,10 +5,14 @@
 {% block newtask %}
     <div class="new_task">
         <form method="post">
-	    <label for="title">Title:</label><br />
-	    <input type="text" id="title" name="title"><br />
-	    <label for="duedate">Due date (yyyymmdd):</label><br />
-	    <input type="text" id="duedate" name="duedate"><br />
+	    <div id="task_title">
+		<label for="title">to do:</label><br />
+		<input type="text" id="title" name="title">
+	    </div>
+	    <div id="task_duedate">
+		<label for="duedate">complete on:</label><br />
+		<input type="text" id="duedate" name="duedate">
+	    </div>
 	    <input type="submit" value="Save">
 	</form> 
     </div>
@@ -19,6 +23,7 @@
 	<div class="task">
 	    <h2>{{ task["title"] }}</h2>
 	    <h3>{{ task["due_by"] }}</h3>
+	    <p><a href="/complete/{{ task["id"] }}">complete</a></p>
 	</div>
     {% endfor %}
 {% endblock %}

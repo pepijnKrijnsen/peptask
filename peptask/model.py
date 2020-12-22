@@ -4,9 +4,11 @@ from datetime import datetime as dt
 
 def newTask(title, due_date):
     # data validation
-    if not title.isalnum():
-        error = "Title must be alpha-numeric."
-        return error
+    list_of_title_words = title.split()
+    for word in list_of_title_words:
+        if not word.isalnum():
+            error = "Title must be alpha-numeric."
+            return error
     fmnow = dt.now().strftime("%Y%m%d")
     if due_date < fmnow:
         error = "Due date cannot be in the past."
@@ -24,6 +26,7 @@ def newTask(title, due_date):
     new_task_file = '{ "id": "%s", "title": "%s", "due_by": "%s" }' % (last_unique, title, due_date)
     nt = open("peptask/tasks/active/{}".format(last_unique), "x")
     nt.write(new_task_file); nt.close()
+    return 0
 
 
 def loadTasks():
@@ -39,7 +42,9 @@ def loadTasks():
     return tasks
 
 def completeTask(id):
+    id = str(id)
     act_dir = "peptask/tasks/active/"
     comp_dir = "peptask/tasks/completed/"
     task_file = act_dir + id
     move_active = "mv {} {}".format(task_file, comp_dir)
+    os.system(move_active)

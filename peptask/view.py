@@ -1,5 +1,5 @@
 import functools
-from flask import url_for, render_template, Blueprint, request
+from flask import url_for, render_template, Blueprint, request, redirect
 
 from . import model
 
@@ -11,18 +11,14 @@ def index():
     if request.method == "POST":
         title = request.form["title"]
         due_date = request.form["duedate"]
-        model.newTask(title, due_date)
+        res = model.newTask(title, due_date)
+        if res != 0:
+            return(res)
     tasks = model.loadTasks()
     return render_template("index.html", tasks = tasks)
 
 
-# @bp.route("/new", methods = ["POST"])
-# def newTask():
-#     title = request.form["title"]
-#     due_date = request.form["due_date"]
-#     model.newTask(title, due_date)
-# 
-# 
-# @bp.route("/complete", methods=("GET", "POST"))
-# def completeTask():
-#     pass
+@bp.route("/complete/<int:id>")
+def completeTask(id):
+    model.completeTask(id)
+    return redirect("/")

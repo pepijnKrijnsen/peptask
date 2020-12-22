@@ -9,8 +9,32 @@
 .task {
 	height: 160px;
 	border: 1px solid blue;
-	margin-bottom: 12px;
+	margin-top: 12px;
 	padding: 0 9px;
 }
 
+.new_task {
+	width: 100%;
+}
 
+#task_title {
+	width: 40%;
+	float: left;
+}
+
+#task_duedate {
+	width: 40%;
+	float: left;
+}
+
+label {
+	color: #280;
+	font-family: georgia, serif;
+	font-size: 18pt;
+	font-weight: bold;
+	line-height: 200%;
+}
+
+[type~=submit]{
+	margin: 50px 0;
+}
