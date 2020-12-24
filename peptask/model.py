@@ -38,8 +38,21 @@ def loadTasks():
         fo = open(path)
         task_data = fo.read(); fo.close()
         d = json.loads(task_data)
+        d = renderDate(d)
         tasks.append(d)
     return tasks
+
+def renderDate(task_data):
+    month_to_name = (
+            "off", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            )
+    raw_date = str(task_data["due_by"])
+    y = raw_date[:4]
+    m = int(raw_date[4:6])
+    d = raw_date[6:]
+    date_render = month_to_name[m] + " " + d + ", " + y
+    task_data["due_by"] = date_render
+    return task_data
 
 def completeTask(id):
     id = str(id)

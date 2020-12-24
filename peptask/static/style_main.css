@@ -1,28 +1,13 @@
-.tasklist {
-	height: 80vh;
-	overflow: auto;
+html, body {
 	width: 700px;
 	margin: 0 auto;
-	padding: 0 6px;
-}
-
-.task {
-	height: 160px;
-	border: 1px solid blue;
-	margin-top: 12px;
-	padding: 0 9px;
 }
 
 .new_task {
-	width: 100%;
+	margin: 12px 0 0 0;
 }
 
-#task_title {
-	width: 40%;
-	float: left;
-}
-
-#task_duedate {
+#task_title, #task_duedate {
 	width: 40%;
 	float: left;
 }
@@ -35,6 +20,30 @@ label {
 	line-height: 200%;
 }
 
-[type~=submit]{
-	margin: 50px 0;
+[type~=submit] {
+	margin: 48px 0;
+}
+
+#list {
+	height: 80vh;
+	overflow: auto;
+}
+
+.task {
+	height: 120px;
+	margin-top: -14px;
+	padding: 0 9px;
+	background-color: #eee;
+}
+
+h1 {
+	width: 70%;
+	margin: 12px 0;
+	float: left;
+}
+
+h2 {
+	width: 30%;
+	margin: 12px 0;
+	float: left;
 }
