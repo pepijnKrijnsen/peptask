@@ -1,5 +1,5 @@
 import os, json
-from datetime import datetime as dt
+from datetime import datetime, timedelta
 
 
 def newTask(title, due_date):
@@ -9,7 +9,14 @@ def newTask(title, due_date):
         if not word.isalnum():
             error = "Title must be alpha-numeric."
             return error
-    fmnow = dt.now().strftime("%Y%m%d")
+    try:
+        int(due_date)
+    except ValueError:
+        due_date = renderWrittenDuedate(due_date)
+        if due_date == 0:
+            error = "Due date format not valid."
+            return error
+    fmnow = datetime.now().strftime("%Y%m%d")
     if due_date < fmnow:
         error = "Due date cannot be in the past."
         return error
@@ -28,9 +35,28 @@ def newTask(title, due_date):
     nt.write(new_task_file); nt.close()
     return 0
 
+def renderWrittenDuedate(d):
+    if d.lower() == "today":
+        res = datetime.now().strftime("%Y%m%d")
+    elif d.lower() == "tomorrow":
+        t = datetime.now() + timedelta(days = 1)
+        res = t.strftime("%Y%m%d")
+    else:
+        res = 0
+    return res
+
 
 def loadTasks():
-    tasks = []
+    tasks = loadFromStorage()
+    tasks_sorted = sorted(tasks, key = lambda i: i["due_by"])
+    print(tasks_sorted)
+    tasks_rendered_date = []
+    for t in tasks_sorted:
+        tasks_rendered_date.append(renderDate(t))
+    return tasks_rendered_date
+
+def loadFromStorage():
+    task_list = []
     dir = "peptask/tasks/active/"
     tasks_files = os.listdir(dir)
     for f in tasks_files:
@@ -38,20 +64,12 @@ def loadTasks():
         fo = open(path)
         task_data = fo.read(); fo.close()
         d = json.loads(task_data)
-        d = renderDate(d)
-        tasks.append(d)
-    return tasks
+        task_list.append(d)
+    return task_list
 
 def renderDate(task_data):
-    month_to_name = (
-            "off", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-            )
-    raw_date = str(task_data["due_by"])
-    y = raw_date[:4]
-    m = int(raw_date[4:6])
-    d = raw_date[6:]
-    date_render = month_to_name[m] + " " + d + ", " + y
-    task_data["due_by"] = date_render
+    dt_object = datetime.strptime(task_data["due_by"], "%Y%m%d")
+    task_data["due_by"] = dt_object.strftime("%A, %B %d")
     return task_data
 
 def completeTask(id):

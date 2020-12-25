@@ -3,7 +3,7 @@
 {% block title %}Tasks{% endblock %}
 
     {% block newtask %}
-	<div class="new_task">
+	<div id="new_task">
 	    <form method="post">
 		<div id="task_title">
 		    <label for="title">to do:</label><br />
@@ -19,13 +19,13 @@
     {% endblock %}
 
     {% block tasks %}
-    <div id="list">
-	{% for task in tasks %}
-	    <div class="task">
-		<h1>{{ task["title"] }}</h1>
-		<h2>{{ task["due_by"] }}</h2>
-		<p><a href="/complete/{{ task["id"] }}">complete</a></p>
-	    </div>
-	{% endfor %}
-    </div>
+	<div id="list">
+	    {% for task in tasks %}
+		<div class="task">
+		    <h2>{{ task["title"] }}</h2>
+		    <h3>{{ task["due_by"] }}</h3>
+		    <a href="/complete/{{ task["id"] }}">complete</a>
+		</div>
+	    {% endfor %}
+	</div>
     {% endblock %}
